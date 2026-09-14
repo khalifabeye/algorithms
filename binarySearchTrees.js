@@ -46,6 +46,20 @@ class BinarySearchTrees {
     return result;
   }
 
+  bfs() {
+    if (!this.root) return;
+    let result = [];
+    const queue = [this.root];
+
+    while (queue.length) {
+      const current = queue.shift();
+      result.push(current.value);
+      if (current.leftChild) queue.push(current.leftChild);
+      if (current.rightChild) queue.push(current.rightChild);
+    }
+    return result;
+  }
+
     _find(value){
         if (!this.root) return;
 
@@ -249,7 +263,7 @@ bst.add(11);
 bst.add(13);
 // console.log(bst._find(12));
 visualizeBST(bst.root)
-console.log(bst.dfsPostorder(bst.root));
+console.log(bst.bfs());
 // bst.delete(10)
 
 
