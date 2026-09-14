@@ -1,4 +1,4 @@
-function visualizeBST(root) {
+export default function visualizeBST(root) {
     const container = document.getElementById("tree");
 
     container.innerHTML = "";
