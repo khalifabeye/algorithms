@@ -1,5 +1,6 @@
 function heapify(array, index = Math.floor(array.length / 2) - 1) {
-  if (!array[index]) return array;
+  if (index >= array.length || index < 0) return array;
+  // let swap = false
   let leftIndex = 2 * index + 1;
   let rightIndex = 2 * index + 2;
   let maxIndex = getMaxIndex(array, leftIndex, rightIndex);
@@ -8,6 +9,7 @@ function heapify(array, index = Math.floor(array.length / 2) - 1) {
     const temp = array[index];
     array[index] = array[maxIndex];
     array[maxIndex] = temp;
+    // swap = true
     heapify(array, maxIndex);
   }
 
@@ -15,21 +17,27 @@ function heapify(array, index = Math.floor(array.length / 2) - 1) {
   return array;
 }
 
-function swap(a, b) {
-  const temp = a;
-  a = b;
-  b = temp;
+function heapSort(heap) {
+  const sortedHeap = []
+  while (heap.length >= 1) {
+    [heap[0], heap[heap.length - 1]] = [heap[heap.length - 1], heap[0]]
+    const r = heap.pop()
+    sortedHeap.unshift(r);
+    heapify(heap, 0);
+  }
+  return sortedHeap;
 }
 
 function getMaxIndex(array, indexA, indexB) {
-  if (array[indexA] && array[indexA] > array[indexB]) {
+  if (array[indexA] !== undefined && array[indexA] > array[indexB]) {
     return indexA;
   }
-  if (array[indexB]) return indexB;
+  if (array[indexB] !== undefined) return indexB;
   return indexA;
 }
 
 const array = [5, 3, 2, 10, 1, 9, 8, 6, 4, 7]
 const heap = heapify(array);
 
-console.log(heap);
+// console.log(heap);
+console.log(heapSort(heap));
