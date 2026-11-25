@@ -22,14 +22,17 @@ class Graph {
     return result;
   }
 
-  findRoles(me, degree, r=[]) {
+  findRoles(me, degree, r=[], visited= new Set()) {
     if (degree <= 0) return r;
 
     r.push(...this.findFirstDegreeRole(me));
     let connections = [...me.connections]
+    visited.add(...connections);
 
-    connections.forEach((person)=>{
-      this.findRoles(person, degree-1, r);
+    connections.forEach((person) => {
+      if (!(person in visited)) {
+        this.findRoles(person, degree-1, r);
+      }
     })
     return r;
   }
